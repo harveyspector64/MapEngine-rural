@@ -1,23 +1,31 @@
 // src/main/main.js
 
-import TileSet from '../tiles/TileSet.js';
+import WFC from '../wfc/WFC.js';
 
 /**
- * Main function to initialize tile set and verify tile loading.
+ * Main function to initialize tile set and generate map using WFC.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const tileSet = new TileSet();
+    const wfc = new WFC();
+    const map = wfc.generateMap();
 
-    // Log loaded tiles for debugging
-    console.log('Loaded tiles:', tileSet.tiles);
+    // Log generated map for debugging
+    console.log('Generated map:', map);
 
-    // Display tile images in the document for verification
-    Object.keys(tileSet.tiles).forEach(type => {
-        const tile = tileSet.getTile(type);
-        const img = document.createElement('img');
-        img.src = tile.image;
-        img.alt = type;
-        img.title = type;
-        document.body.appendChild(img);
+    // Display map on canvas for verification
+    const canvas = document.createElement('canvas');
+    canvas.width = wfc.width * 32; // 32 is the tile size
+    canvas.height = wfc.height * 32;
+    document.body.appendChild(canvas);
+
+    const context = canvas.getContext('2d');
+    map.forEach((row, y) => {
+        row.forEach((tileType, x) => {
+            const img = new Image();
+            img.src = wfc.tileSet.getTile(tileType).image;
+            img.onload = () => {
+                context.drawImage(img, x * 32, y * 32, 32, 32);
+            };
+        });
     });
 });
