@@ -105,4 +105,9 @@ export function collapseState(state) {
  */
 function isFullyCollapsed(state) {
     for (let y = 0; y < state.height; y++) {
- 
+        for (let x = 0; x < state.width; x++) {
+            if (state.tiles[y][x] === null) return false;
+        }
+    }
+    return true;
+}
