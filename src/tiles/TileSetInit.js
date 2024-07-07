@@ -40,5 +40,6 @@ export function initializeTileSet() {
     tileSet.tiles['bush'].addConnection('grass');
     tileSet.tiles['hill'].addConnection('grass');
 
+    console.log('TileSet initialized:', tileSet);
     return tileSet;
 }
