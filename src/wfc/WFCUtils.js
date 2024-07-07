@@ -14,7 +14,9 @@ export function initializeState(tileSet, width, height) {
         width: width,
         height: height,
         tiles: [],
-        entropy: []
+        entropy: [],
+        barns: 0,
+        silos: 0
     };
 
     for (let y = 0; y < height; y++) {
@@ -67,6 +69,16 @@ export function collapseState(state) {
         // Place water tiles for rivers and lakes
         if (selectedTileType === 'water') {
             placeWater(state, cell.x, cell.y);
+        }
+
+        // Limit and place barns and silos logically
+        if (selectedTileType === 'barn' && state.barns < 2) { // Example limit
+            state.barns += 1;
+        } else if (selectedTileType === 'silo' && state.silos < 2) { // Example limit
+            state.silos += 1;
+        } else {
+            // If limit exceeded, choose a different tile
+            state.tiles[cell.y][cell.x] = 'grass';
         }
 
         // Debugging information
