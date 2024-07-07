@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.forEach((tileType, x) => {
                 const tile = wfc.tileSet.getTile(tileType);
                 if (tile) {
+                    console.log(`Rendering tile: ${tileType} at (${x}, ${y})`); // Add debug statement
                     const img = new Image();
                     img.src = tile.image;
                     img.onload = () => {
