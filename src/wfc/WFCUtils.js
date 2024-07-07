@@ -50,6 +50,8 @@ export function collapseState(state) {
 
         const possibleTiles = state.entropy[cell.y][cell.x];
         const selectedTileType = possibleTiles[Math.floor(Math.random() * possibleTiles.length)];
+        console.log(`Selected tile type: ${selectedTileType} for cell (${cell.x}, ${cell.y})`);  // Debugging
+
         state.tiles[cell.y][cell.x] = selectedTileType;
 
         updateEntropy(state, cell.x, cell.y, selectedTileType);
@@ -111,3 +113,5 @@ function isFullyCollapsed(state) {
     }
     return true;
 }
+
+// Other functions like createGrassyAreas remain here for now.
