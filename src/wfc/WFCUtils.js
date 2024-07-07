@@ -11,12 +11,12 @@ import { placeWater } from './WaterManager.js';
 
 /**
  * Initialize the WFC state with tiles.
+ * @param {TileSet} tileSet - The set of tiles to use.
  * @param {number} width - The width of the map.
  * @param {number} height - The height of the map.
  * @return {Object} - The initialized WFC state.
  */
-export function initializeState(width, height) {
-    const tileSet = initializeTileSet();
+export function initializeState(tileSet, width, height) {
     const state = {
         width: width,
         height: height,
@@ -105,11 +105,4 @@ export function collapseState(state) {
  */
 function isFullyCollapsed(state) {
     for (let y = 0; y < state.height; y++) {
-        for (let x = 0; x < state.width; x++) {
-            if (state.tiles[y][x] === null) return false;
-        }
-    }
-    return true;
-}
-
-// Other functions like createGrassyAreas remain here for now.
+ 
