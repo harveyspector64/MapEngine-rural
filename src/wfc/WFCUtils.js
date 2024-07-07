@@ -35,9 +35,6 @@ export function initializeState(tileSet, width, height) {
  * @param {Object} state - The WFC state.
  */
 export function collapseState(state) {
-    // Simple implementation of WFC algorithm
-    // More sophisticated versions could involve entropy and tile constraints
-
     while (!isFullyCollapsed(state)) {
         const cell = findCellWithLowestEntropy(state);
         if (!cell) break;
@@ -107,4 +104,10 @@ function updateEntropy(state, x, y, selectedTileType) {
 
     for (const neighbor of neighbors) {
         const nx = x + neighbor.dx;
-        const ny
+        const ny = y + neighbor.dy;
+
+        if (nx >= 0 && ny >= 0 && nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+            state.entropy[ny][nx] = state.entropy[ny][nx].filter(type => type !== selectedTileType);
+        }
+    }
+}
