@@ -20,11 +20,11 @@ class TileSet {
     loadTiles() {
         // Define tiles with their corresponding images
         this.tiles['grass'] = new Tile('grass', 'assets/grass.png');
-        this.tiles['field'] = new Tile('field', 'assets/field.png');
+        this.tiles['field'] = new Tile('field', 'assets/dirt.png'); // Corrected filename
         this.tiles['dirt'] = new Tile('dirt', 'assets/dirt.png');
         this.tiles['road'] = new Tile('road', 'assets/road.png');
         this.tiles['tree'] = new Tile('tree', 'assets/tree.png');
-        this.tiles['bush'] = new Tile('bush', 'assets/bushy_grass.png');
+        this.tiles['bush'] = new Tile('bush', 'assets/bush.png'); // Corrected filename
         this.tiles['hill'] = new Tile('hill', 'assets/hill.png');
         this.tiles['barn'] = new Tile('barn', 'assets/barn.png');
         this.tiles['silo'] = new Tile('silo', 'assets/silo.png');
