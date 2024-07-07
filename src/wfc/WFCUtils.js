@@ -50,6 +50,25 @@ export function collapseState(state) {
             expandField(state, cell.x, cell.y);
         }
 
+        // Organize roads, trees, bushes, and hills
+        if (selectedTileType === 'road') {
+            extendRoad(state, cell.x, cell.y);
+        }
+        if (selectedTileType === 'tree') {
+            clusterTrees(state, cell.x, cell.y);
+        }
+        if (selectedTileType === 'bush') {
+            clusterBushes(state, cell.x, cell.y);
+        }
+        if (selectedTileType === 'hill') {
+            placeHills(state, cell.x, cell.y);
+        }
+
+        // Place water tiles for rivers and lakes
+        if (selectedTileType === 'water') {
+            placeWater(state, cell.x, cell.y);
+        }
+
         // Debugging information
         console.log(`Collapsed cell (${cell.x}, ${cell.y}) to tile: ${selectedTileType}`);
     }
@@ -132,6 +151,108 @@ function expandField(state, x, y) {
             if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
                 state.tiles[ny][nx] = 'field';
                 updateEntropy(state, nx, ny, 'field');
+            }
+        }
+    }
+}
+
+/**
+ * Extend a road to neighboring tiles.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function extendRoad(state, x, y) {
+    const directions = [
+        { dx: 1, dy: 0 },
+        { dx: -1, dy: 0 },
+        { dx: 0, dy: 1 },
+        { dx: 0, dy: -1 }
+    ];
+    const dir = directions[Math.floor(Math.random() * directions.length)];
+    const nx = x + dir.dx;
+    const ny = y + dir.dy;
+    if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+        state.tiles[ny][nx] = 'road';
+        updateEntropy(state, nx, ny, 'road');
+    }
+}
+
+/**
+ * Cluster trees in a small area.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function clusterTrees(state, x, y) {
+    const size = Math.floor(Math.random() * 2) + 1; // Random cluster size between 1x1 and 2x2
+    for (let dy = 0; dy < size; dy++) {
+        for (let dx = 0; dx < size; dx++) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+                state.tiles[ny][nx] = 'tree';
+                updateEntropy(state, nx, ny, 'tree');
+            }
+        }
+    }
+}
+
+/**
+ * Cluster bushes in a small area.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function clusterBushes(state, x, y) {
+    const size = Math.floor(Math.random() * 2) + 1; // Random cluster size between 1x1 and 2x2
+    for (let dy = 0; dy < size; dy++) {
+        for (let dx = 0; dx < size; dx++) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+                state.tiles[ny][nx] = 'bush';
+                updateEntropy(state, nx, ny, 'bush');
+            }
+        }
+    }
+}
+
+/**
+ * Place hills in a small area.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function placeHills(state, x, y) {
+    const size = Math.floor(Math.random() * 2) + 1; // Random cluster size between 1x1 and 2x2
+    for (let dy = 0; dy < size; dy++) {
+        for (let dx = 0; dx < size; dx++) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+                state.tiles[ny][nx] = 'hill';
+                updateEntropy(state, nx, ny, 'hill');
+            }
+        }
+    }
+}
+
+/**
+ * Place water tiles for rivers and lakes.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function placeWater(state, x, y) {
+    const size = Math.floor(Math.random() * 3) + 2; // Random size between 2x2 and 4x4
+    for (let dy = 0; dy < size; dy++) {
+        for (let dx = 0; dx < size; dx++) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+                state.tiles[ny][nx] = 'water';
+                updateEntropy(state, nx, ny, 'water');
             }
         }
     }
