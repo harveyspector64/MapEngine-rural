@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to initialize the map
     const initializeMap = () => {
         // Get the size of the browser window
-        const width = Math.floor(window.innerWidth / 32); // 32 is the tile size
-        const height = Math.floor(window.innerHeight / 32); // 32 is the tile size
+        const width = Math.floor(window.innerWidth / 128); // 32 is the tile size
+        const height = Math.floor(window.innerHeight / 128); // 32 is the tile size
 
         const wfc = new WFC(width, height);
         const map = wfc.generateMap();
