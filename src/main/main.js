@@ -27,11 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const context = canvas.getContext('2d');
         map.forEach((row, y) => {
             row.forEach((tileType, x) => {
-                const img = new Image();
-                img.src = wfc.tileSet.getTile(tileType).image;
-                img.onload = () => {
-                    context.drawImage(img, x * 32, y * 32, 32, 32);
-                };
+                const tile = wfc.tileSet.getTile(tileType);
+                if (tile) {
+                    const img = new Image();
+                    img.src = tile.image;
+                    img.onload = () => {
+                        context.drawImage(img, x * 32, y * 32, 32, 32);
+                    };
+                } else {
+                    console.error(`Tile not found: ${tileType}`);
+                }
             });
         });
     };
