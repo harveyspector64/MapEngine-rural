@@ -20,6 +20,8 @@ export function initializeTileSet() {
     tileSet.addTile(new Tile('barn', 'assets/barn.png'));
     tileSet.addTile(new Tile('silo', 'assets/silo.png'));
 
+    console.log('Added tiles:', Object.keys(tileSet.tiles));  // Debugging
+
     tileSet.getTile('grass').addConnection('grass');
     tileSet.getTile('grass').addConnection('field');
     tileSet.getTile('grass').addConnection('dirt');
