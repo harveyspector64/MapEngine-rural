@@ -2,6 +2,12 @@
 
 import { initializeTileSet } from '../tiles/TileSetInit.js';
 import { findCellWithLowestEntropy, updateEntropy } from './EntropyManager.js';
+import { expandField } from './FieldManager.js';
+import { extendRoad } from './RoadManager.js';
+import { clusterTrees } from './TreeClusterManager.js';
+import { clusterBushes } from './BushClusterManager.js';
+import { placeHills } from './HillClusterManager.js';
+import { placeWater } from './WaterManager.js';
 
 /**
  * Initialize the WFC state with tiles.
@@ -106,4 +112,4 @@ function isFullyCollapsed(state) {
     return true;
 }
 
-// Other functions like expandField, extendRoad, clusterTrees, clusterBushes, placeHills, placeWater, createGrassyAreas remain here for now.
+// Other functions like createGrassyAreas remain here for now.
