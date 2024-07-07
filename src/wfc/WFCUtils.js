@@ -26,6 +26,7 @@ export function initializeState(tileSet, width, height) {
         }
     }
 
+    console.log('Initialized WFC state:', state);
     return state;
 }
 
@@ -46,6 +47,9 @@ export function collapseState(state) {
         state.tiles[cell.y][cell.x] = selectedTileType;
 
         updateEntropy(state, cell.x, cell.y, selectedTileType);
+
+        // Debugging information
+        console.log(`Collapsed cell (${cell.x}, ${cell.y}) to tile: ${selectedTileType}`);
     }
 }
 
@@ -77,4 +81,30 @@ function findCellWithLowestEntropy(state) {
             const entropy = state.entropy[y][x].length;
             if (state.tiles[y][x] === null && entropy < minEntropy) {
                 minEntropy = entropy;
-                cell = {
+                cell = { x, y };
+            }
+        }
+    }
+
+    return cell;
+}
+
+/**
+ * Update the entropy of neighboring cells.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the cell.
+ * @param {number} y - The y coordinate of the cell.
+ * @param {string} selectedTileType - The type of the selected tile.
+ */
+function updateEntropy(state, x, y, selectedTileType) {
+    // Update entropy for neighboring cells
+    const neighbors = [
+        { dx: 1, dy: 0 },
+        { dx: -1, dy: 0 },
+        { dx: 0, dy: 1 },
+        { dx: 0, dy: -1 }
+    ];
+
+    for (const neighbor of neighbors) {
+        const nx = x + neighbor.dx;
+        const ny
