@@ -10,17 +10,24 @@ import TileSet from './TileSet.js';
 export function initializeTileSet() {
     const tileSet = new TileSet();
 
-    tileSet.addTile(new Tile('grass', 'assets/grass.png'));
-    tileSet.addTile(new Tile('field', 'assets/dirt.png'));
-    tileSet.addTile(new Tile('dirt', 'assets/dirt.png'));
-    tileSet.addTile(new Tile('road', 'assets/road.png'));
-    tileSet.addTile(new Tile('tree', 'assets/tree.png'));
-    tileSet.addTile(new Tile('bush', 'assets/bush.png'));
-    tileSet.addTile(new Tile('hill', 'assets/hill.png'));
-    tileSet.addTile(new Tile('barn', 'assets/barn.png'));
-    tileSet.addTile(new Tile('silo', 'assets/silo.png'));
+    const tiles = [
+        new Tile('grass', 'assets/grass.png'),
+        new Tile('field', 'assets/dirt.png'),
+        new Tile('dirt', 'assets/dirt.png'),
+        new Tile('road', 'assets/road.png'),
+        new Tile('tree', 'assets/tree.png'),
+        new Tile('bush', 'assets/bush.png'),
+        new Tile('hill', 'assets/hill.png'),
+        new Tile('barn', 'assets/barn.png'),
+        new Tile('silo', 'assets/silo.png')
+    ];
 
-    console.log('Added tiles:', Object.keys(tileSet.tiles));  // Debugging
+    tiles.forEach(tile => {
+        tileSet.addTile(tile);
+        console.log(`Added tile: ${tile.type}`); // Debugging
+    });
+
+    console.log('Added tiles:', Object.keys(tileSet.tiles)); // Debugging
 
     tileSet.getTile('grass').addConnection('grass');
     tileSet.getTile('grass').addConnection('field');
