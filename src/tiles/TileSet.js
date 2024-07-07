@@ -30,13 +30,28 @@ class TileSet {
         this.tiles['silo'] = new Tile('silo', 'assets/silo.png');
 
         // Define tile connections
+        this.tiles['grass'].addConnection('grass');
         this.tiles['grass'].addConnection('field');
         this.tiles['grass'].addConnection('dirt');
+        this.tiles['grass'].addConnection('tree');
+        this.tiles['grass'].addConnection('bush');
+        this.tiles['grass'].addConnection('hill');
+        
+        this.tiles['field'].addConnection('field');
         this.tiles['field'].addConnection('grass');
+
+        this.tiles['dirt'].addConnection('dirt');
         this.tiles['dirt'].addConnection('road');
+        this.tiles['dirt'].addConnection('grass');
+
+        this.tiles['road'].addConnection('road');
         this.tiles['road'].addConnection('dirt');
+
         this.tiles['tree'].addConnection('grass');
         this.tiles['bush'].addConnection('grass');
+
+        this.tiles['hill'].addConnection('grass');
+        
         // Add other connections as needed
     }
 
