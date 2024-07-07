@@ -81,6 +81,11 @@ export function collapseState(state) {
             state.tiles[cell.y][cell.x] = 'grass';
         }
 
+        // Ensure grassy areas with trees
+        if (selectedTileType === 'grass') {
+            createGrassyAreas(state, cell.x, cell.y);
+        }
+
         // Debugging information
         console.log(`Collapsed cell (${cell.x}, ${cell.y}) to tile: ${selectedTileType}`);
     }
@@ -266,6 +271,37 @@ function placeWater(state, x, y) {
                 state.tiles[ny][nx] = 'water';
                 updateEntropy(state, nx, ny, 'water');
             }
+        }
+    }
+}
+
+/**
+ * Ensure grassy areas with trees.
+ * @param {Object} state - The WFC state.
+ * @param {number} x - The x coordinate of the starting cell.
+ * @param {number} y - The y coordinate of the starting cell.
+ */
+function createGrassyAreas(state, x, y) {
+    const size = Math.floor(Math.random() * 3) + 2; // Random size between 2x2 and 4x4
+    for (let dy = 0; dy < size; dy++) {
+        for (let dx = 0; dx < size; dx++) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < state.width && ny < state.height && state.tiles[ny][nx] === null) {
+                state.tiles[ny][nx] = 'grass';
+                updateEntropy(state, nx, ny, 'grass');
+            }
+        }
+    }
+
+    // Add trees within grassy areas
+    const treeCount = Math.floor(Math.random() * 5) + 1; // Random number of trees between 1 and 5
+    for (let i = 0; i < treeCount; i++) {
+        const nx = x + Math.floor(Math.random() * size);
+        const ny = y + Math.floor(Math.random() * size);
+        if (nx < state.width && ny < state.height && state.tiles[ny][nx] === 'grass') {
+            state.tiles[ny][nx] = 'tree';
+            updateEntropy(state, nx, ny, 'tree');
         }
     }
 }
