@@ -16,6 +16,7 @@ class TileSet {
      */
     addTile(tile) {
         this.tiles[tile.type] = tile;
+        console.log(`Tile added: ${tile.type}`);  // Debugging
     }
 
     /**
