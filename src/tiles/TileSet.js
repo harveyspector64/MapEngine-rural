@@ -24,6 +24,9 @@ class TileSet {
      * @return {Tile} - The tile with the specified type.
      */
     getTile(type) {
+        if (!this.tiles[type]) {
+            console.error(`Tile not found during getTile: ${type}`);
+        }
         return this.tiles[type];
     }
 }
