@@ -19,6 +19,7 @@ export function findCellWithLowestEntropy(state) {
         }
     }
 
+    console.log('Cell with lowest entropy found:', cell);
     return cell;
 }
 
@@ -46,4 +47,6 @@ export function updateEntropy(state, x, y, selectedTileType) {
             state.entropy[ny][nx] = state.entropy[ny][nx].filter(type => type !== selectedTileType);
         }
     }
+
+    console.log(`Entropy updated for neighbors of cell (${x}, ${y})`);
 }
