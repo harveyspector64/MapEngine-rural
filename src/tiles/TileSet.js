@@ -1,31 +1,37 @@
-// src/tiles/TileSetTest.js
+// src/tiles/TileSet.js
 
 import Tile from './Tile.js';
-import TileSet from './TileSet.js';
 
-// Initialize TileSet
-const tileSet = new TileSet();
+/**
+ * Class representing a set of tiles.
+ */
+class TileSet {
+    constructor() {
+        this.tiles = {};
+    }
 
-const tiles = [
-    new Tile('grass', 'assets/grass.png'),
-    new Tile('field', 'assets/dirt.png'),
-    new Tile('dirt', 'assets/dirt.png'),
-    new Tile('road', 'assets/road.png'),
-    new Tile('tree', 'assets/tree.png'),
-    new Tile('bush', 'assets/bush.png'),
-    new Tile('hill', 'assets/hill.png'),
-    new Tile('barn', 'assets/barn.png'),
-    new Tile('silo', 'assets/silo.png')
-];
+    /**
+     * Add a tile to the tile set.
+     * @param {Tile} tile - The tile to add.
+     */
+    addTile(tile) {
+        this.tiles[tile.type] = tile;
+        console.log(`Tile added: ${tile.type} with image ${tile.image}`);  // Detailed logging
+    }
 
-tiles.forEach(tile => {
-    tileSet.addTile(tile);
-    console.log(`Tile initialized for test: ${tile.type} with image ${tile.image}`);
-});
+    /**
+     * Get a tile by its type.
+     * @param {string} type - The type of the tile.
+     * @return {Tile} - The tile with the specified type.
+     */
+    getTile(type) {
+        if (!this.tiles[type]) {
+            console.error(`Tile not found during getTile: ${type}`);
+        } else {
+            console.log(`Tile retrieved: ${type} with image ${this.tiles[type].image}`);  // Detailed logging
+        }
+        return this.tiles[type];
+    }
+}
 
-// Test tile retrieval
-const grassTile = tileSet.getTile('grass');
-console.log(grassTile ? `Grass tile found: ${grassTile.image}` : 'Grass tile not found');
-
-const roadTile = tileSet.getTile('road');
-console.log(roadTile ? `Road tile found: ${roadTile.image}` : 'Road tile not found');
+export default TileSet; // Ensure the default export
