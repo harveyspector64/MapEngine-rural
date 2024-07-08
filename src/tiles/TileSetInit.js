@@ -1,7 +1,7 @@
 // src/tiles/TileSetInit.js
 
 import Tile from './Tile.js';
-import TileSet from './TileSet.js';
+import TileSet from './TileSet.js'; // Correct import
 
 /**
  * Initialize the tile set with tile definitions and connections.
