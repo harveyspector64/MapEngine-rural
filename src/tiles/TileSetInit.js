@@ -24,10 +24,10 @@ export function initializeTileSet() {
 
     tiles.forEach(tile => {
         tileSet.addTile(tile);
-        console.log(`Tile initialized: ${tile.type} with image ${tile.image}`);  // Debugging
+        console.log(`Tile initialized: ${tile.type} with image ${tile.image}`);  // Detailed logging
     });
 
-    console.log('Added tiles:', Object.keys(tileSet.tiles)); // Debugging
+    console.log('Added tiles:', Object.keys(tileSet.tiles)); // Logging added tiles
 
     tileSet.getTile('grass').addConnection('grass');
     tileSet.getTile('grass').addConnection('field');
